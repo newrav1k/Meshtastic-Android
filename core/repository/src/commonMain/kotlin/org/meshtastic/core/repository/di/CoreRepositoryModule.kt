@@ -20,6 +20,9 @@ import org.koin.core.annotation.Module
 import org.koin.core.annotation.Provided
 import org.koin.core.annotation.Single
 import org.meshtastic.core.model.RadioController
+import org.meshtastic.core.repository.AuthPrefs
+import org.meshtastic.core.repository.AuthSessionRepository
+import org.meshtastic.core.repository.AuthSessionRepositoryImpl
 import org.meshtastic.core.repository.HomoglyphPrefs
 import org.meshtastic.core.repository.MessageQueue
 import org.meshtastic.core.repository.NodeRepository
@@ -29,6 +32,12 @@ import org.meshtastic.core.repository.usecase.SendMessageUseCaseImpl
 
 @Module
 class CoreRepositoryModule {
+
+    @Single
+    fun provideAuthSessionRepository(
+        authPrefs: AuthPrefs,
+    ): AuthSessionRepository = AuthSessionRepositoryImpl(authPrefs)
+
     @Single
     fun provideSendMessageUseCase(
         @Provided nodeRepository: NodeRepository,

@@ -16,6 +16,7 @@
  */
 package org.meshtastic.core.repository
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 /** Reactive interface for analytics-related preferences. */
@@ -225,6 +226,23 @@ interface TakPrefs {
     fun setTakServerEnabled(enabled: Boolean)
 }
 
+
+interface AuthPrefs {
+
+    val accessToken: Flow<String?>
+
+    val expiresAt: Flow<String?>
+
+    val authority: Flow<String?>
+
+    suspend fun setAccessToken(token: String?)
+
+    suspend fun setExpiresAt(value: String?)
+
+    suspend fun setAuthority(value: String?)
+
+}
+
 /** Consolidated interface for all application preferences. */
 interface AppPreferences {
     val analytics: AnalyticsPrefs
@@ -239,4 +257,5 @@ interface AppPreferences {
     val radio: RadioPrefs
     val mesh: MeshPrefs
     val tak: TakPrefs
+    val auth: AuthPrefs
 }
