@@ -20,6 +20,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -253,7 +254,13 @@ class PacketRepositoryImpl(private val dbManager: DatabaseProvider, private val 
                 hopsAway = packet.hopsAway,
                 filtered = filtered,
             )
+        Logger.e("DISPATCHER_DEBUG") {
+            "RECEIVE -> rawContactKey='$contactKey' from='${packet.from}' to='${packet.to}' channel='${packet.channel}'"
+        }
         insertRoomPacket(packetToSave)
+        Logger.e("DISPATCHER_DEBUG") {
+            "RECEIVE_SAVED -> contactKey='$contactKey'"
+        }
     }
 
     override suspend fun update(packet: DataPacket, routingError: Int): Unit = withContext(dispatchers.io) {
