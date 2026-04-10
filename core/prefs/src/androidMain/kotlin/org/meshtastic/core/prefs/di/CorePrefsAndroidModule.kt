@@ -35,6 +35,14 @@ class CorePrefsAndroidModule {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     @Single
+    fun provideAuthDataStore(
+        context: Context,
+    ): DataStore<Preferences> =
+        PreferenceDataStoreFactory.create(
+            produceFile = { context.preferencesDataStoreFile("auth_prefs") }
+        )
+
+    @Single
     @Named("AnalyticsDataStore")
     fun provideAnalyticsDataStore(context: Context): DataStore<Preferences> = PreferenceDataStoreFactory.create(
         migrations = listOf(SharedPreferencesMigration(context, "analytics-prefs")),
