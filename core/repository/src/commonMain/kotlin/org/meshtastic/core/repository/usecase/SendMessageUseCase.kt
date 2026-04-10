@@ -113,6 +113,9 @@ class SendMessageUseCaseImpl(
             }
 
         try {
+            Logger.e("DISPATCHER_DEBUG") {
+                "SEND -> text='$text' contactKey='$contactKey' dest='$dest' channel='$channel'"
+            }
             // Write to the DB to immediately reflect the queued state on the UI
             packetRepository.savePacket(
                 myNodeNum = ourNode?.num ?: 0,
@@ -120,6 +123,9 @@ class SendMessageUseCaseImpl(
                 packet = packet,
                 receivedTime = nowMillis,
             )
+            Logger.e("DISPATCHER_DEBUG") {
+                "SEND_SAVED -> contactKey='$contactKey' packetId=$packetId"
+            }
 
             // Enqueue for durable transmission via the platform-specific queue
             messageQueue.enqueue(packetId)
