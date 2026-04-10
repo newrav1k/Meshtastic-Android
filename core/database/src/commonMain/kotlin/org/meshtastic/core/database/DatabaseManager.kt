@@ -135,10 +135,11 @@ open class DatabaseManager(
         // Also mark the previous DB as used "just now" so LRU has an accurate, recent timestamp
         previousDbName?.let { markLastUsed(it) }
 
-        // Now safe to close the previous DB — collectors have switched to the new instance.
-        if (previousDbName != null && previousDbName != dbName) {
-            closeCachedDatabase(previousDbName)
-        }
+        // TODO: Раскомментировать после исправления бага
+//        // Now safe to close the previous DB — collectors have switched to the new instance.
+//        if (previousDbName != null && previousDbName != dbName) {
+//            closeCachedDatabase(previousDbName)
+//        }
 
         // Defer LRU eviction so switch is not blocked by filesystem work
         managerScope.launch(dispatchers.io) { enforceCacheLimit(activeDbName = dbName) }
