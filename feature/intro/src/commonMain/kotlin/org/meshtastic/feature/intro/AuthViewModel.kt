@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
+import org.meshtastic.core.model.Authority
 import org.meshtastic.core.repository.AuthRepository
 import org.meshtastic.core.repository.AuthSessionRepository
 import kotlin.time.Clock
@@ -104,5 +105,5 @@ data class AuthUiState(
 sealed interface SessionState {
     data object Checking : SessionState
     data object Unauthorized : SessionState
-    data class Authorized(val authority: String) : SessionState
+    data class Authorized(val authority: Authority) : SessionState
 }
