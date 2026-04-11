@@ -22,5 +22,5 @@ data class AccessToken(
 
 @Serializable
 data class AuthorityResponse(
-    val authority: String
+    val authority: Authority
 )

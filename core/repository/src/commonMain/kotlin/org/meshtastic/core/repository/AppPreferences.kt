@@ -18,6 +18,7 @@ package org.meshtastic.core.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import org.meshtastic.core.model.Authority
 
 /** Reactive interface for analytics-related preferences. */
 interface AnalyticsPrefs {
@@ -233,13 +234,13 @@ interface AuthPrefs {
 
     val expiresAt: Flow<String?>
 
-    val authority: Flow<String?>
+    val authority: Flow<Authority?>
 
     suspend fun setAccessToken(token: String?)
 
     suspend fun setExpiresAt(value: String?)
 
-    suspend fun setAuthority(value: String?)
+    suspend fun setAuthority(value: Authority?)
 
 }
 
